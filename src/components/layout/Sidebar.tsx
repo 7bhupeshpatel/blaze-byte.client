@@ -10,7 +10,8 @@ import {
   History,
   Utensils, // For Product/Menu management
   UserPlus,
-  ShoppingCart  // For Staff management
+  ShoppingCart,
+  LucideGitGraph  // For Staff management
 } from 'lucide-react';
 import styles from '../../styles/pages/admin/Admin.module.css';
 
@@ -38,11 +39,13 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed, onLogout
       { path: '/workspace/dashboard', label: 'Business Overview', icon: LayoutDashboard },
       { path: '/workspace/inventory', label: 'Menu & Products', icon: Utensils },
       { path: '/workspace/staff', label: 'Manage Staff', icon: UserPlus },
+      { path: '/analytics/admin', label: 'Sales  analytics', icon: LucideGitGraph },
     ],
     // Visitors/Staff might have their own small set of links later
     VISITOR: [
       { path: '/pos/dashboard', label: 'Sales Terminal', icon: ShoppingCart },
       { path: '/pos/history', label: 'My Sales History', icon: History },
+      { path: '/analytics/staff', label: 'Sales  analytics', icon: LucideGitGraph },
     ]
   };
 

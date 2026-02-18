@@ -16,6 +16,8 @@ import WorkspaceDashboard from './pages/workspace/WorkspaceDashboard';
 import POSDashboard from './pages/staff/POSDashboard';
 import SalesHistory from './pages/staff/SalesHistory';
 import Settings from './pages/common/Settings';
+import StaffAnalytics from './pages/staff/StaffAnalytics';
+import AdminAnalytics from './pages/workspace/AdminAnalytics';
 
 
 
@@ -42,6 +44,7 @@ const App: React.FC = () => {
       <Route path="/admin/dashboard" element={<AdminDashboard />} />
       <Route path="/admin/users" element={<UserManagement />} />
       <Route path="/admin/logs" element={<AuditLogs />} />
+      
     </Route>
   </Route>
 
@@ -53,6 +56,7 @@ const App: React.FC = () => {
     <Route path="/workspace/dashboard" element={<WorkspaceDashboard />} />
       <Route path="/workspace/inventory" element={<Products />} />
       <Route path="/workspace/staff" element={<Staff />} />
+      <Route path="/analytics/admin" element={<AdminAnalytics />} />
     </Route>
   </Route>
     
@@ -61,6 +65,7 @@ const App: React.FC = () => {
     <Route element={<MainLayout />}>
     <Route path="/pos/dashboard" element={<POSDashboard />} />
       <Route path="/pos/history" element={<SalesHistory />} />
+      <Route path="/analytics/staff" element={<StaffAnalytics />} />
     </Route>
   </Route>
 
