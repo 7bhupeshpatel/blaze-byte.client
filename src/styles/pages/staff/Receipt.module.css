@@ -1,0 +1,35 @@
+.receipt {
+  width: 280px; /* 80mm approx */
+  font-family: monospace;
+  font-size: 12px;
+  padding: 10px;
+  color: black;
+  background: white;
+}
+
+.storeName {
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.center {
+  text-align: center;
+}
+
+.itemRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.total {
+  text-align: right;
+  margin-top: 10px;
+}
+
+hr {
+  border: none;
+  border-top: 1px dashed black;
+  margin: 8px 0;
+}

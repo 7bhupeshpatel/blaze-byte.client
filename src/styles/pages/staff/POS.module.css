@@ -1,0 +1,254 @@
+/* ============================= */
+/* ===== MAIN LAYOUT =========== */
+/* ============================= */
+
+.container {
+  display: flex;
+  height: 100vh;
+  background: #0f172a;
+  color: #fff;
+}
+
+/* ============================= */
+/* ===== PRODUCTS SECTION ====== */
+/* ============================= */
+
+.productsSection {
+  flex: 3;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.productsSection h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, #6366f1, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.2rem;
+}
+
+.card {
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 1.2rem;
+  cursor: pointer;
+  transition: 0.25s ease;
+  border: 1px solid rgba(255,255,255,0.08);
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  background: rgba(99,102,241,0.1);
+  border-color: #6366f1;
+}
+
+.price {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-weight: 600;
+  color: #22c55e;
+}
+
+.card h3 {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+}
+
+.card span {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.6);
+}
+
+.stock {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: #fbbf24;
+}
+
+/* ============================= */
+/* ===== CART SECTION ========== */
+/* ============================= */
+
+.cartSection {
+  flex: 1.5;
+  background: #111827;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid rgba(255,255,255,0.08);
+}
+
+.cartSection h2 {
+  margin-bottom: 1rem;
+}
+
+.empty {
+  text-align: center;
+  margin-top: 2rem;
+  color: rgba(255,255,255,0.5);
+}
+
+/* ============================= */
+/* ===== CART ITEMS ============ */
+/* ============================= */
+
+.cartItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem;
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  margin-bottom: 0.8rem;
+}
+
+.cartItem strong {
+  font-size: 0.9rem;
+}
+
+.cartItem small {
+  display: block;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.6);
+}
+
+/* ============================= */
+/* ===== QUANTITY CONTROLS ===== */
+/* ============================= */
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.controls button {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #fff;
+  transition: 0.2s;
+}
+
+.controls button:hover {
+  background: #6366f1;
+}
+
+.controls span {
+  min-width: 20px;
+  text-align: center;
+}
+
+/* ============================= */
+/* ===== TOTAL & CHECKOUT ====== */
+/* ============================= */
+
+.total {
+  margin-top: auto;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.checkoutBtn {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.9rem;
+  background: #6366f1;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: 0.25s;
+}
+
+.checkoutBtn:hover {
+  background: #4f46e5;
+}
+
+.checkoutBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ============================= */
+/* ===== MODAL STYLES ========== */
+/* ============================= */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #1e293b;
+  padding: 2rem;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal input {
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.05);
+  color: white;
+}
+
+.modal input:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+
+.confirmBtn {
+  margin-top: 1rem;
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: none;
+  background: #22c55e;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.confirmBtn:hover {
+  background: #16a34a;
+}
+
+.confirmBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

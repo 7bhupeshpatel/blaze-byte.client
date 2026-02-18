@@ -1,0 +1,125 @@
+/* Overlay and Container */
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.modalContent {
+    background: #0a0a0f;
+    border: 1px solid rgba(212, 0, 0, 0.658); /* Slight red border tint */
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 77, 77, 0.1);
+}
+
+/* Vibrating Animation Logic */
+.shake {
+    animation: shakeAnim 0.4s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shakeAnim {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+/* Modal Internal Elements */
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.titleGroup {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+}
+
+.titleGroup h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    color: #fff;
+}
+
+.modalBody {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.warningIconWrapper {
+    margin-bottom: 1rem;
+}
+
+.modalText {
+    color: #a0a0a0;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.modalText strong {
+    color: #00ffcc;
+}
+
+/* BUTTON STYLES */
+.modalActions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.cancelBtn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cancelBtn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.confirmLogoutBtn {
+    background: #ff4d4d; /* Alert Red */
+    border: none;
+    color: #fff;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 15px rgba(255, 77, 77, 0.3);
+}
+
+.confirmLogoutBtn:hover {
+    background: #ff3333;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 77, 77, 0.5);
+}
+
+.closeBtn {
+    background: transparent;
+    border: none;
+    color: #555;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.closeBtn:hover {
+    color: #ff4d4d;
+}

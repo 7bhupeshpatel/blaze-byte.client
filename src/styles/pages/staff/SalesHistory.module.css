@@ -1,0 +1,161 @@
+.container {
+  padding: 2rem;
+  background: #0f172a;
+  color: white;
+  min-height: 100vh;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  font-size: 1.8rem;
+  background: linear-gradient(90deg, #6366f1, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header p {
+  color: rgba(255,255,255,0.6);
+  margin-top: 0.4rem;
+}
+
+.loading,
+.emptyState {
+  text-align: center;
+  margin-top: 3rem;
+  color: rgba(255,255,255,0.5);
+}
+
+/* ========================== */
+/* ===== SALES LIST ========= */
+/* ========================== */
+
+.salesList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.saleCard {
+  background: rgba(255,255,255,0.05);
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  overflow: hidden;
+  transition: 0.2s;
+}
+
+.saleCard:hover {
+  border-color: #6366f1;
+}
+
+/* ========================== */
+/* ===== SALE HEADER ======== */
+/* ========================== */
+
+.saleHeader {
+  padding: 1rem 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.saleHeader strong {
+  font-size: 1.1rem;
+}
+
+.date {
+  display: block;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.5);
+}
+
+.metaInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.7);
+}
+
+/* ========================== */
+/* ===== DETAILS SECTION ==== */
+/* ========================== */
+
+.saleDetails {
+  padding: 1rem 1.2rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.customerBlock {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.customerBlock div {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #cbd5e1;
+}
+
+.staffInfo {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+}
+
+/* ========================== */
+/* ===== ITEMS LIST ========= */
+/* ========================== */
+
+.itemsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.itemRow {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 1rem;
+  font-size: 0.85rem;
+  align-items: center;
+}
+
+.itemRow span {
+  color: rgba(255,255,255,0.7);
+}
+
+.itemRow strong {
+  color: #22c55e;
+}
+
+.totalamount{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: larger;
+    font-weight: 800;
+}
+
+.totalAmountNumber{
+    color: #22c55e;
+}
+
+.discountPercentage{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: medium;
+    font-weight: 700;
+}
+
+.discountPercentageNumber{
+    color: red;
+}
