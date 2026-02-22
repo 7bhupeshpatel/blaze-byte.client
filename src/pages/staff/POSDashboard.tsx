@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { useStaff } from '../../hooks/useStaff';
 import { 
   ShoppingCart, Plus, Minus, Trash2, 
@@ -32,6 +32,40 @@ const POSDashboard = () => {
   const handlePrint = useReactToPrint({ contentRef: receiptRef });
 
   useEffect(() => { fetchProducts(); }, [fetchProducts]);
+
+  /* ============================================= */
+  /* === PROFESSIONAL GROUPING & SORTING LOGIC === */
+  /* ============================================= */
+  const groupedProducts = useMemo(() => {
+    // 1. Filter based on search
+    const filtered = products.filter(p => 
+      p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.category?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    // 2. Group by Category (Case-Insensitive)
+    const groups: { [key: string]: any[] } = {};
+
+    filtered.forEach(product => {
+      const category = (product.category || 'Uncategorized').trim();
+      // Use a consistent key for grouping but keep display name for later
+      const groupKey = category.toUpperCase(); 
+      
+      if (!groups[groupKey]) {
+        groups[groupKey] = [];
+      }
+      groups[groupKey].push(product);
+    });
+
+    // 3. Sort Categories alphabetically and Products by Price (Asc)
+    const sortedGroupKeys = Object.keys(groups).sort();
+    
+    return sortedGroupKeys.map(key => ({
+      categoryName: groups[key][0].category || 'Uncategorized',
+      items: groups[key].sort((a, b) => a.price - b.price) // Price: Low to High
+    }));
+  }, [products, searchQuery]);
+
 
   const addToCart = (product: any) => {
     if ((product.stock || 0) <= 0) return;
@@ -98,28 +132,44 @@ const POSDashboard = () => {
           </div>
         </div>
 
-        <div className={styles.grid}>
-          {filteredProducts.map(product => (
-            <div 
-              key={product.id} 
-              className={`${styles.card} ${product.stock <= 0 ? styles.disabled : ''}`}
-              onClick={() => addToCart(product)}
-            >
-              <div className={styles.cardBadge}>${product.price.toFixed(2)}</div>
-              <div className={styles.cardContent}>
-                <h3>{product.name}</h3>
-                <p>{product.category}</p>
-                <div className={styles.cardFooter}>
-                  <span>Stock: {product.stock}</span>
-                  {product.stock > 0 ? (
-                    <div className={styles.addIcon}><Plus size={16}/></div>
-                  ) : (
-                    <span className={styles.outText}>Empty</span>
-                  )}
+{/* Scrollable Products Area */}
+        <div className={styles.productsScrollArea}>
+          {groupedProducts.length === 0 ? (
+            <div className={styles.noResults}>No products found matching your search.</div>
+          ) : (
+            groupedProducts.map(group => (
+              <div key={group.categoryName} className={styles.categoryBlock}>
+                <div className={styles.categoryDivider}>
+                  <Filter size={14} />
+                  <span>{group.categoryName}</span>
+                  <div className={styles.dividerLine}></div>
+                </div>
+
+                <div className={styles.grid}>
+                  {group.items.map(product => (
+                    <div 
+                      key={product.id} 
+                      className={`${styles.card} ${product.stock <= 0 ? styles.disabled : ''}`}
+                      onClick={() => addToCart(product)}
+                    >
+                      <div className={styles.cardBadge}>${product.price.toFixed(2)}</div>
+                      <div className={styles.cardContent}>
+                        <h3>{product.name}</h3>
+                        <div className={styles.cardFooter}>
+                          <span>Stock: {product.stock}</span>
+                          {product.stock > 0 ? (
+                            <div className={styles.addIcon}><Plus size={16}/></div>
+                          ) : (
+                            <span className={styles.outText}>Out</span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
 
