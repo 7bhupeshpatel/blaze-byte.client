@@ -33,3 +33,78 @@ hr {
   border-top: 1px dashed black;
   margin: 8px 0;
 }
+
+/* 58mm Thermal Optimized */
+
+.thermalContainer {
+  width: 58mm;
+  max-width: 58mm;
+  font-family: monospace;
+  font-size: 12px;
+  padding: 5px;
+  color: #000;
+}
+
+.section {
+  margin-bottom: 8px;
+}
+
+.center {
+  text-align: center;
+}
+
+.centerBold {
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.line {
+  border-top: 1px dashed #000;
+  margin: 4px 0;
+}
+
+.doubleLine {
+  border-top: 2px solid #000;
+  margin: 6px 0;
+}
+
+.cutLine {
+  text-align: center;
+  margin: 8px 0;
+  font-size: 11px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rowBold {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.itemBlock {
+  margin-bottom: 4px;
+}
+
+.kitchenRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin: 3px 0;
+}
+
+@media print {
+  body {
+    margin: 0;
+  }
+
+  .thermalContainer {
+    width: 58mm;
+  }
+}
+

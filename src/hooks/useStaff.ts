@@ -35,7 +35,8 @@ const createSale = async (
   }[],
   customerName?: string,
   customerPhone?: string,
-  discountPercent?: number
+  discountPercent?: number,
+  paymentMethod: "CASH" | "ONLINE" = "CASH" // ✅ DEFAULT
 ): Promise<Sale | null> => {
 
   const toastId = toast.loading('Processing sale...');
@@ -47,7 +48,8 @@ const createSale = async (
         name: customerName,
         phone: customerPhone
       },
-      discountPercent
+      discountPercent,
+      paymentMethod
     });
 
     setSales(prev => [newSale, ...prev]);

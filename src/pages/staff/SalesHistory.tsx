@@ -94,12 +94,14 @@ const SalesHistory = () => {
                     ))}
 
                     <div className={styles.discountPercentage}>
-                        <span>Discount Percentage/Discount Amount</span> <span className={styles.discountPercentageNumber}>{sale.discountPercent}%  :::  ${sale.discountAmount}</span>
+                        <span>Discount Percentage/Discount Amount</span> <span className={styles.discountPercentageNumber}>{sale.discountPercent}%  = =  ${sale.discountAmount}</span>
                     </div>
                     <div className={styles.totalamount}>
                         <span>Total Amount</span> <span className={styles.totalAmountNumber}>${sale.totalAmount}</span>
                     </div>
-                    
+                        <div className={styles.discountPercentage}>
+                        <span>Payment Method</span> <span className={styles.discountPercentageNumber}>{sale.paymentMethod}</span>
+                    </div>
                   </div>
 
                 </div>

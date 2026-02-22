@@ -9,7 +9,7 @@ export interface StaffProduct {
   name: string;
   price: number;
   category?: string;
-  stock?: number | null ;
+  stock: number  ;
   createdAt: string;
 }
 
@@ -23,6 +23,9 @@ export interface Sale {
   id: string;
   totalAmount: number;
   createdAt: string;
+
+  paymentMethod: "CASH" | "ONLINE";
+
   customerName?: string | null;
   customerPhone?: string | null;
 
@@ -60,6 +63,7 @@ async createSale(payload: {
     phone?: string;
   };
   discountPercent?: number;
+  paymentMethod: "CASH" | "ONLINE"; // ✅ REQUIRED NOW
   }): Promise<Sale> {
 
     const response = await apiService.post<any>(

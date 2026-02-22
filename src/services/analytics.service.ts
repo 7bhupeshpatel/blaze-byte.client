@@ -12,18 +12,72 @@ export interface MostSoldProduct {
 }
 
 export interface AdminAnalytics {
+  /* ===== Core Revenue ===== */
   daily: number;
   weekly: number;
   monthly: number;
+  yearly: number;
 
+  /* ===== Payment Split ===== */
+  dailyCash: number;
+  dailyOnline: number;
+
+  monthlyCash: number;
+  monthlyOnline: number;
+
+  /* ===== Orders ===== */
+  totalOrdersToday: number;
+  totalOrdersMonth: number;
+  totalOrdersYear: number;
+
+  /* ===== Discounts ===== */
+  totalDiscountMonth: number;
+  totalDiscountYear: number;
+
+  /* ===== Performance ===== */
+  averageOrderValue: number;
+
+  monthlyGrowthPercent: number;
+  isGrowing: boolean;
+
+  /* ===== Trends ===== */
+  last7Days: {
+    date: string;
+    revenue: number;
+  }[];
+
+  last12Months: {
+    month: string;
+    revenue: number;
+  }[];
+
+  /* ===== Staff Ranking ===== */
+  staffRanking: {
+    name: string;
+    revenue: number;
+  }[];
+
+  /* ===== Category Intelligence ===== */
   mostSoldProduct: MostSoldProduct | null;
   mostSoldCategory: string | null;
+
+  categoryBreakdown: {
+    category: string;
+    quantity: number;
+  }[];
 }
+
 
 export interface StaffAnalytics {
   daily: number;
   weekly: number;
   monthly: number;
+
+  dailyCash: number;
+  dailyOnline: number;
+
+  monthlyCash: number;
+  monthlyOnline: number;
 }
 
 /* ============================= */
