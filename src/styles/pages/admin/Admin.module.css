@@ -5,7 +5,16 @@
   --glass-bg: rgba(15, 15, 20, 0.8);
   --neon-border: rgba(0, 255, 213, 0.2);
 }
-
+.sidebarBadge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  background-color: #f97316; /* Orange */
+  border-radius: 50%;
+  border: 2px solid white;
+}
 .dashboardShell {
   display: flex;
   height: 100vh;

@@ -11,7 +11,9 @@ import {
   Utensils, // For Product/Menu management
   UserPlus,
   ShoppingCart,
-  LucideGitGraph  // For Staff management
+  LucideGitGraph,
+  ChefHat, // Add this for Live Orders
+  BellRing // Optional: for a different vibe  // For Staff management
 } from 'lucide-react';
 import styles from '../../styles/pages/admin/Admin.module.css';
 
@@ -38,15 +40,18 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed, onLogout
     ADMIN: [
       { path: '/workspace/dashboard', label: 'Business Overview', icon: LayoutDashboard },
       { path: '/workspace/inventory', label: 'Menu & Products', icon: Utensils },
+      { path: '/workspace/orders', label: 'Live Orders', icon: ChefHat }, // <--- ADDED THIS
       { path: '/workspace/staff', label: 'Manage Staff', icon: UserPlus },
       { path: '/analytics/admin', label: 'Sales  analytics', icon: LucideGitGraph },
     ],
     // Visitors/Staff might have their own small set of links later
     VISITOR: [
       { path: '/pos/dashboard', label: 'Sales Terminal', icon: ShoppingCart },
+      { path: '/staff/orders', label: 'Live Orders', icon: ChefHat },
       { path: '/pos/history', label: 'My Sales History', icon: History },
       { path: '/analytics/staff', label: 'Sales  analytics', icon: LucideGitGraph },
     ]
+
   };
 
   // Select the appropriate links array
@@ -77,7 +82,13 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed, onLogout
               to={link.path} 
               className={`${styles.navItem} ${isActive ? styles.activeNavItem : ''}`}
             >
-              <Icon size={20} /> 
+              <div className="relative flex items-center">
+      <Icon size={20} />
+      {/* Simple logic: if it's the orders path, you could show a badge */}
+      {link.label === 'Live Orders' && (
+        <span className={styles.sidebarBadge} /> 
+      )}
+    </div>
               {!isCollapsed && <span>{link.label}</span>}
             </Link>
           );

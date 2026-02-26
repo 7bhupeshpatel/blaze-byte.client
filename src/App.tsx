@@ -18,7 +18,8 @@ import SalesHistory from './pages/staff/SalesHistory';
 import Settings from './pages/common/Settings';
 import StaffAnalytics from './pages/staff/StaffAnalytics';
 import AdminAnalytics from './pages/workspace/AdminAnalytics';
-
+import GuestDashboard from './pages/guest/GuestDashboard';
+import OrdersManager from './pages/OrderManager'; // Adjust path if needed
 
 
 const App: React.FC = () => {
@@ -34,7 +35,7 @@ const App: React.FC = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-
+        <Route path="/menu/:companyId" element={<GuestDashboard />} />
 {/* Authenticated Dashboard Pages (With Sidebar/Header) */}
 
 {/* --- SUPERADMIN ROUTES --- */}
@@ -56,7 +57,9 @@ const App: React.FC = () => {
     <Route path="/workspace/dashboard" element={<WorkspaceDashboard />} />
       <Route path="/workspace/inventory" element={<Products />} />
       <Route path="/workspace/staff" element={<Staff />} />
+      <Route path="/workspace/orders" element={<OrdersManager />} />
       <Route path="/analytics/admin" element={<AdminAnalytics />} />
+      <Route path="/orders/admin" element={<AdminAnalytics />} />
     </Route>
   </Route>
     
@@ -65,6 +68,7 @@ const App: React.FC = () => {
     <Route element={<MainLayout />}>
     <Route path="/pos/dashboard" element={<POSDashboard />} />
       <Route path="/pos/history" element={<SalesHistory />} />
+      <Route path="/staff/orders" element={<OrdersManager />} />
       <Route path="/analytics/staff" element={<StaffAnalytics />} />
     </Route>
   </Route>
@@ -75,11 +79,9 @@ const App: React.FC = () => {
   
 
 {/* Standard User Pages */}
-  {/* <Route element={<ProtectedRoute allowedRoles={['GUEST', 'VISITOR']} />}>
-     <Route element={<MainLayout />}>
-        <Route path="/home" element={<UserHome />} />
-     </Route>
-  </Route> */}
+  <Route element={<ProtectedRoute allowedRoles={['GUEST', 'VISITOR']} />}>
+    
+  </Route>
 
 
         {/* Future routes for OTP and Dashboard can go here */}
