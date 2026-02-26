@@ -4,11 +4,13 @@ import { useGuest } from '../../hooks/useGuest';
 import styles from '../../styles/pages/guest/GuestDashboard.module.css';
 import { ShoppingBag, Plus, Minus, Search, ChevronRight, Store, X, Info } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useGuestOrderTracking } from "../../hooks/useOrderTracking";
 
 const GuestDashboard: React.FC = () => {
   const { companyId } = useParams<{ companyId: string }>();
   const { menu, loading, placeOrder, getMenu } = useGuest();
 
+  const [activeOrderId, setActiveOrderId] = useState<string | null>(null);
   const [cart, setCart] = useState<{ [key: string]: number }>({});
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
@@ -20,6 +22,7 @@ const GuestDashboard: React.FC = () => {
     if (companyId) getMenu(companyId);
   }, [companyId, getMenu]);
 
+  const { status, completed } = useGuestOrderTracking(activeOrderId);
   // Normalized Grouping Logic
   const groupedMenu = useMemo(() => {
     if (!menu) return {};
@@ -60,7 +63,28 @@ const GuestDashboard: React.FC = () => {
   if (loading && !menu) return <div className={styles.container}>Initializing...</div>;
 
   return (
+
     <div className={styles.container}>
+
+      {status && (
+  <div
+    style={{
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      background: "#0f172a",
+      color: "#fff",
+      padding: "12px",
+      textAlign: "center",
+      fontWeight: "bold",
+      zIndex: 9999,
+      borderBottom: "3px solid #f97316"
+    }}
+  >
+    🧾 Your Order Status: {status}
+  </div>
+)}
       {/* HEADER */}
       <header className={styles.header}>
         <div className="max-w-2xl mx-auto flex justify-between items-center">
@@ -227,6 +251,7 @@ const GuestDashboard: React.FC = () => {
     if (res) {
       setCart({});
       setIsModalOpen(false);
+       setActiveOrderId(res.id); // Start tracking this order
       toast.success("Order Placed Successfully!");
     }
   }}

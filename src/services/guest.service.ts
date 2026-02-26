@@ -56,5 +56,17 @@ export const guestApiService = {
         } catch (error: any) {
             throw error.response?.data?.message || error.message || 'Could not place order';
         }
+    },
+
+  async getOrderStatus(orderId: string): Promise<{ id: string; status: string }> {
+        try {
+            const response = await apiService.get<any>(`/guest/order/${orderId}/status`);
+            if (response.success) {
+                return response.data;
+            }
+            throw new Error(response.message || 'Failed to fetch order status');
+        } catch (error: any) {
+            throw error.response?.data?.message || error.message || 'Failed to fetch order status';
+        }
     }
 };
