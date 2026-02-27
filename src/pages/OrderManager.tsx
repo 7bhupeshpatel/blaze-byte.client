@@ -215,9 +215,21 @@ const OrdersManager: React.FC = () => {
                   </div>
                 </div>
 
-                <div className={styles.orderNum}>
-                  #{order.orderNumber}
-                </div>
+                <div className={styles.orderMeta}>
+  <div className={styles.orderNum}>
+    #{order.orderNumber}
+  </div>
+
+  <div
+    className={`${styles.paymentBadge} ${
+      order.paymentMethod === "ONLINE"
+        ? styles.online
+        : styles.cash
+    }`}
+  >
+    {order.paymentMethod}
+  </div>
+</div>
               </div>
 
               <div className={styles.itemList}>

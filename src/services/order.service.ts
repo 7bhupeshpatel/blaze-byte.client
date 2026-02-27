@@ -27,6 +27,7 @@ export interface Sale {
   orderNumber: string | null;
   createdAt: string;
   items: SaleItem[];
+  paymentMethod: "CASH" | "ONLINE";
 }
 
 export const orderApiService = {

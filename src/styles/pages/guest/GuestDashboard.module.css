@@ -16,6 +16,7 @@
   backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding: 1.25rem 1rem;
+  gap: 10px;
 }
 
 .brandGradient {
@@ -33,7 +34,16 @@
   padding: 1rem 0;
   scrollbar-width: none;
 }
+.categorySection{
+  
+  overflow: auto;
+  height: 20rem;
+}
 
+
+.categoryMainSection{
+  overflow: auto;
+}
 .categoryScroll::-webkit-scrollbar { display: none; }
 
 .catButton {
@@ -152,6 +162,58 @@
   flex-direction: column;
 }
 
+.emptycartButton {
+  padding: 8px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.08);
+  border: 1px solid rgba(248, 113, 113, 0.25);
+  border-radius: 8px;
+  margin-top: 1rem;
+  margin-right: 12rem;
+
+  cursor: pointer;
+  transition: 
+    background 0.25s ease,
+    transform 0.15s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+/* Hover */
+.emptycartButton:hover {
+  background: rgba(248, 113, 113, 0.18);
+  border-color: rgba(248, 113, 113, 0.5);
+  box-shadow: 0 4px 12px rgba(248, 113, 113, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Click effect */
+.emptycartButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(248, 113, 113, 0.2);
+}
+
+/* Focus accessibility */
+.emptycartButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.3);
+}
+
+/* Optional subtle pulse when cart has items */
+.emptycartButton.pulse {
+  animation: subtlePulse 1.8s infinite ease-in-out;
+}
+
+@keyframes subtlePulse {
+  0% { box-shadow: 0 0 0 0 rgba(248, 113, 113, 0.3); }
+  70% { box-shadow: 0 0 0 8px rgba(248, 113, 113, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(248, 113, 113, 0); }
+}
 @keyframes slideUp {
   from { transform: translateY(100%); }
   to { transform: translateY(0); }

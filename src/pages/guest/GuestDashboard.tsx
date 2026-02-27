@@ -90,11 +90,23 @@ const GuestDashboard: React.FC = () => {
         <div className="max-w-2xl mx-auto flex justify-between items-center">
           <div>
             <h1 className={styles.brandGradient}>{menu?.name || 'Workshop'}</h1>
-            <p className="text-[10px] text-slate-400 flex items-center gap-1 uppercase tracking-tighter">
-              <Store size={12} className="text-rose-500" /> Digital Order Point
-            </p>
+  <div className="flex items-center gap-2">
+    {totalItems > 0 && (
+      <button
+        onClick={() => setCart({})}
+        className= {styles.emptycartButton}
+      >
+        Empty Cart
+      </button>
+    )}
+
+    <button
+      onClick={() => setIsModalOpen(false)}
+      className="p-2 bg-slate-800 rounded-full hover:bg-slate-700 transition"
+    >
+    </button>
+  </div>
           </div>
-          <ShoppingBag size={24} className="text-slate-400" />
         </div>
       </header>
 
@@ -121,7 +133,7 @@ const GuestDashboard: React.FC = () => {
             </button>
           ))}
         </div>
-
+          <div className={styles.categoryMainSection}>
         {Object.entries(groupedMenu).map(([category, products]: any) => (
           (activeCategory === 'All' || activeCategory === category) && (
             <section key={category} className={styles.categorySection}>
@@ -144,9 +156,12 @@ const GuestDashboard: React.FC = () => {
                 </div>
               ))}
             </section>
+            
           )
-        ))}
+          
+        ))}</div>
       </main>
+      
 
       {/* FAB */}
       {totalItems > 0 && (
@@ -165,10 +180,31 @@ const GuestDashboard: React.FC = () => {
       {isModalOpen && (
         <div className={styles.modalOverlay} onClick={() => setIsModalOpen(false)}>
           <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-black text-white">Review Order</h2>
-              <button onClick={() => setIsModalOpen(false)} className="p-2 bg-slate-800 rounded-full"><X size={20}/></button>
-            </div>
+<div className="flex justify-between items-center mb-4">
+  <h2 className="text-2xl font-black text-white">Review Order</h2>
+
+  <div className="flex items-center gap-2">
+    {totalItems > 0 && (
+      <button
+        onClick={() => {
+  
+    setCart({});
+  
+}}
+        className={styles.emptycartButton}
+      >
+        Empty Cart
+      </button>
+    )}
+
+    <button
+      onClick={() => setIsModalOpen(false)}
+      className="p-2 bg-slate-800 rounded-full hover:bg-slate-700 transition"
+    >
+      <X size={20}/>
+    </button>
+  </div>
+</div>
 
             <div className="overflow-y-auto pr-2">
               <div className={styles.receiptContainer}>

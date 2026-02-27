@@ -113,6 +113,31 @@
   letter-spacing: 1px;
 }
 
+.orderMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.paymentBadge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.online {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+}
+
+.cash {
+  background-color: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+}
 /* Rest of standard card styles... */
 .cardHeader { display: flex; justify-content: space-between; margin-bottom: 1rem; }
 .customerInfo { display: flex; gap: 1rem; }
