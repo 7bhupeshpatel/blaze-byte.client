@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useAnalytics } from '../../hooks/useAnalytics';
+import { useInventory } from '../../hooks/useInventory'; // Adjust this import path as needed
 import styles from '../../styles/pages/workspace/AdminAnalytics.module.css';
 import {
   TrendingUp,
@@ -8,7 +9,8 @@ import {
   Users,
   FileSpreadsheet,
   FileText,
-  Download
+  Package, // Added for Inventory
+  PieChart // Added for Net Profit
 } from 'lucide-react';
 
 import {
@@ -31,15 +33,35 @@ import html2canvas from 'html2canvas';
 
 const AdminAnalytics = () => {
   const { adminData, fetchAdminAnalytics } = useAnalytics();
+  const { inventoryList, fetchInventory } = useInventory(); // Destructure the inventory hook
   const pdfRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Fetch both analytics and inventory on mount
     fetchAdminAnalytics();
-    const interval = setInterval(() => fetchAdminAnalytics(), 30000);
+    fetchInventory();
+    
+    // Poll both every 30 seconds
+    const interval = setInterval(() => {
+      fetchAdminAnalytics();
+      fetchInventory();
+    }, 30000);
+    
     return () => clearInterval(interval);
-  }, [fetchAdminAnalytics]);
+  }, [fetchAdminAnalytics, fetchInventory]);
 
   if (!adminData) return <div className={styles.loading}>Loading Analytics Engine...</div>;
+
+  // Calculate total inventory cost
+  // Adjust 'cost' and 'quantity' below to match your exact Inventory interface properties
+  const totalInventoryCost = inventoryList.reduce((sum, item: any) => {
+    const itemCost = item.costPrice || item.cost || item.purchasePrice || item.price || 0;
+    const itemQty = item.stockQuantity || item.stock || item.quantity || 1;
+    return sum + (itemCost * itemQty);
+  }, 0);
+
+  // Calculate Sale - Inventory Cost
+  const netRevenue = adminData.monthly - totalInventoryCost;
 
   const exportExcel = () => {
     const ws = XLSX.utils.json_to_sheet(adminData.staffRanking);
@@ -82,6 +104,28 @@ const AdminAnalytics = () => {
             <label>Monthly Revenue</label>
             <h3>${adminData.monthly.toLocaleString()}</h3>
             <span className={styles.discountText}>Discounts: -${adminData.totalDiscountMonth}</span>
+          </div>
+        </div>
+
+        {/* NEW: Inventory Cost Card */}
+        <div className={styles.kpiCard}>
+          <div className={`${styles.iconBox} ${styles.orange}`}><Package /></div>
+          <div>
+            <label>Total Inventory Cost</label>
+            <h3>${totalInventoryCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h3>
+            <span>Capital tied in stock</span>
+          </div>
+        </div>
+
+        {/* NEW: Net Revenue (Sale - Inventory) Card */}
+        <div className={styles.kpiCard}>
+          <div className={`${styles.iconBox} ${styles.green}`}><PieChart /></div>
+          <div>
+            <label>Net Revenue</label>
+            <h3>${netRevenue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h3>
+            <span className={netRevenue >= 0 ? styles.trendUp : styles.outText}>
+              {netRevenue >= 0 ? 'Profit Active' : 'Operating at Loss'}
+            </span>
           </div>
         </div>
 

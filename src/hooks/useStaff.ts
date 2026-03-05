@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { staffService, StaffProduct, Sale } from '../services/staff.service';
+import { staffService, StaffProduct, Sale, PaymentStatus } from '../services/staff.service';
 import { toast } from 'react-hot-toast';
 
 export const useStaff = () => {
@@ -24,6 +24,8 @@ export const useStaff = () => {
     }
   }, []);
 
+
+  
   /* ========================= */
   /* ===== CREATE SALE ======= */
   /* ========================= */
@@ -36,7 +38,8 @@ const createSale = async (
   customerName?: string,
   customerPhone?: string,
   discountPercent?: number,
-  paymentMethod: "CASH" | "ONLINE" = "CASH" // ✅ DEFAULT
+  paymentMethod: "CASH" | "ONLINE" = "CASH",
+  paymentStatus: PaymentStatus = PaymentStatus.PENDING // ✅ DEFAULT
 ): Promise<Sale | null> => {
 
   const toastId = toast.loading('Processing sale...');
@@ -49,7 +52,8 @@ const createSale = async (
         phone: customerPhone
       },
       discountPercent,
-      paymentMethod
+      paymentMethod,
+      paymentStatus // ✅ DEFAULT TO PAID
     });
 
     setSales(prev => [newSale, ...prev]);
@@ -77,6 +81,36 @@ const createSale = async (
 };
 
 
+/* ================================= */
+  /* ===== UPDATE PAYMENT STATUS ===== */
+  /* ================================= */
+
+  const updateSalePaymentStatus = async (
+    saleId: string,
+    newStatus: PaymentStatus
+  ): Promise<boolean> => {
+    const toastId = toast.loading('Updating payment status...');
+
+    try {
+      const updatedSale = await staffService.updatePaymentStatus(saleId, newStatus);
+
+      // ✅ Update the specific sale in the local array immediately
+      setSales(prevSales => 
+        prevSales.map(sale => 
+          sale.id === saleId ? updatedSale : sale
+        )
+      );
+
+      toast.success('Payment status updated!', { id: toastId });
+      return true;
+
+    } catch (err: any) {
+      // This will catch the "Maximum of 3 changes" error from your backend
+      toast.error(err.message || 'Failed to update status', { id: toastId });
+      return false;
+    }
+  };
+
   /* ========================= */
   /* ===== FETCH SALES ======= */
   /* ========================= */
@@ -100,6 +134,12 @@ const createSale = async (
 
     fetchProducts,
     createSale,
-    fetchMySales
+    fetchMySales,
+    updateSalePaymentStatus
   };
+
+
+  
 };
+
+

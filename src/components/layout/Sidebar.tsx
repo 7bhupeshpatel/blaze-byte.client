@@ -8,12 +8,12 @@ import {
   ChevronLeft, 
   ChevronRight, 
   History,
-  Utensils, // For Product/Menu management
+  Utensils, 
   UserPlus,
   ShoppingCart,
   LucideGitGraph,
-  ChefHat, // Add this for Live Orders
-  BellRing // Optional: for a different vibe  // For Staff management
+  ChefHat, 
+  WarehouseIcon 
 } from 'lucide-react';
 import styles from '../../styles/pages/admin/Admin.module.css';
 
@@ -28,41 +28,40 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed, onLogout
   
   // In a real app, get this from your AuthContext or Redux store
   const userRole = localStorage.getItem('blaze_role') || 'GUEST'; 
-  console.log('user role for sidebar', userRole);
-
-  // Define Navigation based on Role
+  
   const navigation = {
     SUPERADMIN: [
-      { path: '/admin/dashboard', label: 'System Dashboard', icon: LayoutDashboard },
-      { path: '/admin/users', label: 'User Control', icon: Users },
-      { path: '/admin/logs', label: 'Audit Logs', icon: History },
+      { path: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+      { path: '/admin/users', label: 'Users', icon: Users },
+      { path: '/admin/logs', label: 'Logs', icon: History },
     ],
     ADMIN: [
-      { path: '/workspace/dashboard', label: 'Business Overview', icon: LayoutDashboard },
-      { path: '/workspace/inventory', label: 'Menu & Products', icon: Utensils },
-      { path: '/workspace/orders', label: 'Live Orders', icon: ChefHat }, // <--- ADDED THIS
-      { path: '/workspace/staff', label: 'Manage Staff', icon: UserPlus },
-      { path: '/analytics/admin', label: 'Sales  analytics', icon: LucideGitGraph },
+      { path: '/workspace/dashboard', label: 'Overview', icon: LayoutDashboard },
+      { path: '/workspace/inventory', label: 'Products', icon: Utensils },
+      { path: '/workspace/orders', label: 'Live Orders', icon: ChefHat },
+      { path: '/workspace/staff', label: 'Staff', icon: UserPlus },
+      { path: '/analytics/admin', label: 'Analytics', icon: LucideGitGraph },
+      { path: '/inventory', label: 'Inventory', icon: WarehouseIcon },
     ],
-    // Visitors/Staff might have their own small set of links later
     VISITOR: [
-      { path: '/pos/dashboard', label: 'Sales Terminal', icon: ShoppingCart },
+      { path: '/pos/dashboard', label: 'Terminal', icon: ShoppingCart },
       { path: '/staff/orders', label: 'Live Orders', icon: ChefHat },
-      { path: '/pos/history', label: 'My Sales History', icon: History },
-      { path: '/analytics/staff', label: 'Sales  analytics', icon: LucideGitGraph },
+      { path: '/pos/history', label: 'History', icon: History },
+      { path: '/analytics/staff', label: 'Analytics', icon: LucideGitGraph },
+      { path: '/inventory', label: 'Inventory', icon: WarehouseIcon },
     ]
-
   };
 
-  // Select the appropriate links array
   const activeLinks = navigation[userRole as keyof typeof navigation] || [];
 
   return (
     <aside className={`${styles.sidebar} ${isCollapsed ? styles.collapsedSidebar : ''}`}>
+      {/* Desktop Logo */}
       <div className={styles.logoSection}>
         {isCollapsed ? 'BB' : 'BLAZE BYTE'}
       </div>
 
+      {/* Desktop Collapse Button */}
       <button 
         className={styles.collapseBtn} 
         onClick={() => setIsCollapsed(!isCollapsed)}
@@ -71,6 +70,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed, onLogout
         {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
       </button>
 
+      {/* Navigation Links */}
       <nav className={styles.navLinks}>
         {activeLinks.map((link) => {
           const Icon = link.icon;
@@ -81,34 +81,40 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed, onLogout
               key={link.path} 
               to={link.path} 
               className={`${styles.navItem} ${isActive ? styles.activeNavItem : ''}`}
+              title={link.label} // Helpful tooltip on hover
             >
-              <div className="relative flex items-center">
-      <Icon size={20} />
-      {/* Simple logic: if it's the orders path, you could show a badge */}
-      {link.label === 'Live Orders' && (
-        <span className={styles.sidebarBadge} /> 
-      )}
-    </div>
-              {!isCollapsed && <span>{link.label}</span>}
+              <div className={styles.iconWrapper}>
+                <Icon size={22} />
+                {link.label === 'Live Orders' && (
+                  <span className={styles.sidebarBadge} /> 
+                )}
+              </div>
+              <span className={styles.navLabel}>{link.label}</span>
             </Link>
           );
         })}
 
-        {/* Common links for all authenticated users */}
         <div className={styles.navDivider} />
         
+        {/* Settings Link */}
         <Link 
           to="/settings" 
           className={`${styles.navItem} ${location.pathname === '/settings' ? styles.activeNavItem : ''}`}
+          title="Settings"
         >
-          <Settings size={20} /> 
-          {!isCollapsed && <span>Settings</span>}
+          <div className={styles.iconWrapper}>
+             <Settings size={22} /> 
+          </div>
+          <span className={styles.navLabel}>Settings</span>
         </Link>
       </nav>
 
-      <button onClick={onLogout} className={styles.logoutBtn}>
-        <LogOut size={20} /> 
-        {!isCollapsed && <span>Logout</span>}
+      {/* Logout Button */}
+      <button onClick={onLogout} className={styles.logoutBtn} title="Logout">
+        <div className={styles.iconWrapper}>
+          <LogOut size={22} /> 
+        </div>
+        <span className={styles.navLabel}>Logout</span>
       </button>
     </aside>
   );

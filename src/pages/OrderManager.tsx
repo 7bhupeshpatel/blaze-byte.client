@@ -277,6 +277,7 @@ const OrdersManager: React.FC = () => {
       ref={receiptRef}
       sale={{
         ...lastCompletedSale,
+        paymentUpdateCount: (lastCompletedSale as any).paymentUpdateCount ?? 0,
 
         subtotalAmount:
           (lastCompletedSale as any).subtotalAmount ?? lastCompletedSale.totalAmount,

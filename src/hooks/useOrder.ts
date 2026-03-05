@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { orderApiService, Sale, OrderStatus } from '../services/order.service';
+import { orderApiService, Sale, OrderStatus, PaymentStatus } from '../services/order.service';
 import { toast } from 'react-hot-toast';
 
 export const useOrders = () => {
@@ -49,10 +49,10 @@ export const useOrders = () => {
   /**
    * ✅ Change status (PREPARING, COMPLETED, CANCELLED)
    */
-  const changeStatus = async (saleId: string, status: OrderStatus) => {
+  const changeStatus = async (saleId: string, status: OrderStatus, paymentStatus?: PaymentStatus) => {
     setLoading(true);
     try {
-      const updated = await orderApiService.updateStatus(saleId, status);
+      const updated = await orderApiService.updateStatus(saleId, status, paymentStatus);
 
       // Optimistic update
       setOrders(prev =>

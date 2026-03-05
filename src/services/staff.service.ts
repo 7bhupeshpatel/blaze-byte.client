@@ -13,6 +13,12 @@ export interface StaffProduct {
   createdAt: string;
 }
 
+export enum PaymentStatus {
+  PENDING = 'PENDING',
+  PAID = 'PAID',
+  FAILED = 'FAILED'
+}
+
 export interface SaleItem {
   id: string;
   quantity: number;
@@ -25,6 +31,9 @@ export interface Sale {
   createdAt: string;
 
   paymentMethod: "CASH" | "ONLINE";
+
+  paymentStatus: PaymentStatus;
+  paymentUpdateCount: number;
 
   customerName?: string | null;
   customerPhone?: string | null;
@@ -63,7 +72,8 @@ async createSale(payload: {
     phone?: string;
   };
   discountPercent?: number;
-  paymentMethod: "CASH" | "ONLINE"; // ✅ REQUIRED NOW
+  paymentMethod: "CASH" | "ONLINE";
+  paymentStatus: PaymentStatus; // ✅ REQUIRED NOW
   }): Promise<Sale> {
 
     const response = await apiService.post<any>(
@@ -77,6 +87,16 @@ async createSale(payload: {
   /* ===== GET MY SALES ===== */
   async getMySales(): Promise<Sale[]> {
     const response = await apiService.get<any>('/staff/sales');
+    return response.data;
+  },
+
+  /* ===== UPDATE PAYMENT STATUS ===== */
+  async updatePaymentStatus(saleId: string, paymentStatus: PaymentStatus): Promise<Sale> {
+    const response = await apiService.patch<any>(
+      `/staff/sale/${saleId}/payment-status`,
+      { paymentStatus }
+    );
+    
     return response.data;
   }
 

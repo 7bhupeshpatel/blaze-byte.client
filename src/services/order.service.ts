@@ -8,6 +8,12 @@ export enum OrderStatus {
   CANCELLED = 'CANCELLED'
 }
 
+export enum PaymentStatus {
+  PENDING = 'PENDING',
+  PAID = 'PAID',
+  FAILED = 'FAILED'
+}
+
 export interface SaleItem {
   id: string;
   quantity: number;
@@ -28,6 +34,9 @@ export interface Sale {
   createdAt: string;
   items: SaleItem[];
   paymentMethod: "CASH" | "ONLINE";
+
+  paymentStatus: PaymentStatus;
+
 }
 
 export const orderApiService = {
@@ -64,11 +73,11 @@ export const orderApiService = {
   /**
    * ✅ Update order status (PREPARING, COMPLETED, CANCELLED)
    */
-  async updateStatus(saleId: string, status: OrderStatus): Promise<Sale> {
+  async updateStatus(saleId: string, status: OrderStatus, paymentStatus?: PaymentStatus): Promise<Sale> {
     try {
       const response = await apiService.patch<any>(
         `/orders/${saleId}/status`,
-        { status }
+        { status, paymentStatus }
       );
 
       if (response.success) {

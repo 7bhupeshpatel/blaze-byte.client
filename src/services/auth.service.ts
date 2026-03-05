@@ -36,6 +36,8 @@ interface AuthUser {
     role: 'GUEST' | 'VISITOR' | 'ADMIN' | 'SUPERADMIN';
     isVerified: boolean;
     isActive: boolean;
+    companyId?: string; // Add this
+    managedCompany?: { id: string; name: string }; // Add this
 }
 
 interface LoginResponse {

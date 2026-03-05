@@ -20,6 +20,7 @@ import StaffAnalytics from './pages/staff/StaffAnalytics';
 import AdminAnalytics from './pages/workspace/AdminAnalytics';
 import GuestDashboard from './pages/guest/GuestDashboard';
 import OrdersManager from './pages/OrderManager'; // Adjust path if needed
+import InventoryPage from './pages/InventoryPage';
 
 
 const App: React.FC = () => {
@@ -48,6 +49,14 @@ const App: React.FC = () => {
       
     </Route>
   </Route>
+
+{/* --- SHARED AUTHENTICATED ROUTES (Admin & Staff/Visitor) --- */}
+<Route element={<ProtectedRoute allowedRoles={['ADMIN', 'VISITOR']} />}>
+  <Route element={<MainLayout />}>
+    <Route path="/inventory" element={<InventoryPage />} />
+    <Route path="/settings" element={<Settings />} />
+  </Route>
+</Route>
 
 
 {/* --- WORKSPACE ADMIN ROUTES --- */}
